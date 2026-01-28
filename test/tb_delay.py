@@ -1,6 +1,8 @@
 import cocotb
-from cocotb.triggers import Timer
 from cocotb.clock import Clock
+
+# MUST BE MODIFIED IN NEWER VERSIONS OF 'cocotb'
+from cocotb.triggers import Timer, ValueChange
 
 @cocotb.test()
 async def main_test(dut):
@@ -23,7 +25,8 @@ async def main_test(dut):
     dut.indata.value = 0b1111000
 
     # Waiting until dut.outdata changes.
-    await dut.outdata.signal_change
+    # MUST BE MODIFIED IN NEWER VERSIONS OF 'cocotb'
+    await ValueChange(dut.outdata)
     
     dut._log.info("Stimuli done")
     await Timer(200, unit="ns")
