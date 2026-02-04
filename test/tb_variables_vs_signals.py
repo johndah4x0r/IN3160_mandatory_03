@@ -6,10 +6,11 @@
 import cocotb
 from cocotb.triggers import Timer
 
+TIME_UNIT = "us"
+
 
 @cocotb.test()
 async def main_test(dut):
-    
     """Try accessing the design."""
     dut._log.info("Running test...")
 
@@ -17,12 +18,12 @@ async def main_test(dut):
     dut.indata.value = 0b0
 
     # Changing indata after 100 ns
-    await Timer(100, unit='ns')
+    await Timer(100, unit=TIME_UNIT)
     dut.indata.value = 0b1
 
     # Changing indata after 200 ns
-    await Timer(100, unit='ns')
+    await Timer(100, unit=TIME_UNIT)
     dut.indata.value = 0b0
 
-    await Timer(100, unit='ns')
+    await Timer(100, unit=TIME_UNIT)
     dut._log.info("Test done!")
